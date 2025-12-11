@@ -1,9 +1,11 @@
 import ollama
 
 # Modelle definieren
-model_a = "ministral-3:14b"
-model_b = "deepseek-r1:8b"
-model_c = "qwen3-vl:2b"
+#model_a = "ministral-3:14b"
+#model_b = "deepseek-r1:8b"
+model_a = "ministral-3:3b"
+model_b = "ministral-3:3b"
+model_c = "ministral-3:3b"
 
 def ask_model(model_name, prompt):
     print(f"⏳ {model_name} denkt nach...") # Kleines Feedback beim Warten
