@@ -1,9 +1,9 @@
 import ollama
 
-# Modelle definieren (achte darauf, dass die Namen exakt stimmen)
-model_a = "ministral-3:14b" # Der Lehrer
-model_b = "deepseek-r1:8b"  # Der Schüler
-model_c = "qwen3-vl:2b"     # Der Faktenchecker (Zweitmeinung)
+# Modelle definieren
+model_a = "ministral-3:14b"
+model_b = "deepseek-r1:8b"
+model_c = "qwen3-vl:2b"
 
 def ask_model(model_name, prompt):
     print(f"⏳ {model_name} denkt nach...") # Kleines Feedback beim Warten
