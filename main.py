@@ -7,9 +7,14 @@ import ollama
 model_a = "ministral-3:3b"
 model_b = "ministral-3:3b"
 model_c = "ministral-3:3b"
+#model_a = input("Bitte gib das Modell für den Lehrer ein (z.B. ministral-3:3b): ")
+#model_b = input("Bitte gib das Modell für den Schüler ein (z.B. deepseek-r1:8b): ")
+#model_c = input("Bitte gib das Modell für den Checker ein (z.B. qwen3-vl:2b): ")
+
+topic = input("Zu welchem Thema soll eine Quizfrage gestellt werden?: ")
 
 def ask_model(model_name, prompt):
-    print(f"⏳ {model_name} denkt nach...") # Kleines Feedback beim Warten
+    print(f"⏳ {model_name} denkt nach...")
     try:
         response = ollama.chat(model=model_name, messages=[
             {'role': 'user', 'content': prompt},
@@ -20,25 +25,18 @@ def ask_model(model_name, prompt):
 
 print("\n--- Start der Dreier-Konferenz ---\n")
 
-# SCHRITT 1: Lehrer (A) generiert eine Quizfrage
-topic = "Quantenphysik"
 prompt_1 = f"Stelle eine kurze, aber knifflige Quizfrage zum Thema {topic}."
 frage = ask_model(model_a, prompt_1)
 print(f"\n👨‍🏫 [{model_a} LEHRER]:\n{frage}\n")
 
-# SCHRITT 2: Schüler (B) versucht zu antworten
 prompt_2 = f"Die Frage ist: '{frage}'. Beantworte sie kurz und prägnant."
 antwort_b = ask_model(model_b, prompt_2)
 print(f"\n🧑‍🎓 [{model_b} SCHÜLER]:\n{antwort_b}\n")
 
-# SCHRITT 3: Faktenchecker (C) prüft die Antwort
-# Wir geben C die Frage UND die Antwort von B
 prompt_3 = f"Frage: '{frage}'. Antwort eines Schülers: '{antwort_b}'. Hat der Schüler recht? Ergänze ein wichtiges Detail, das fehlt."
 kommentar_c = ask_model(model_c, prompt_3)
 print(f"\n🤓 [{model_c} CHECKER]:\n{kommentar_c}\n")
 
-# SCHRITT 4: Lehrer (A) gibt die Endnote
-# A sieht nun alles: Seine Frage, die Antwort von B und die Kritik von C
 prompt_4 = (f"Hier ist der Verlauf:\n"
             f"1. Deine Frage: {frage}\n"
             f"2. Antwort Schüler: {antwort_b}\n"
