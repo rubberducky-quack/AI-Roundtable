@@ -1,7 +1,8 @@
 import ollama
 
-model_a = ""
-model_b = ""
+model_a = "ministral-3:14b"
+model_b = "deepseek-r1:8b"
+model_c = "qwen3-vl:2b"
 
 def ask_model(model_name, prompt):
     response = ollama.chat(model=model_name, messages=[
