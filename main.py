@@ -1,46 +1,40 @@
 import ollama
 
-# Modelle definieren
-#model_a = "ministral-3:14b"
-#model_b = "ministral-3:14b"
-#model_c ="ministral-3:14b"
-model_a = "ministral-3:3b"
-model_b = "ministral-3:3b"
-model_c = "ministral-3:3b"
-#model_a = input("Bitte gib das Modell für den Lehrer ein (z.B. ministral-3:3b): ")
-#model_b = input("Bitte gib das Modell für den Schüler ein (z.B. deepseek-r1:8b): ")
-#model_c = input("Bitte gib das Modell für den Checker ein (z.B. qwen3-vl:2b): ")
+# Konfiguration
 
-topic = input("Zu welchem Thema soll eine Quizfrage gestellt werden?: ")
+m1 = "ministral-3:14b"
+m2 = "ministral-3:14b"
+m3 ="ministral-3:14b"
+#m1 = "ministral-3:3b"
+#m2 = "ministral-3:3b"
+#m3 = "ministral-3:3b"
 
-def ask_model(model_name, prompt):
-    print(f"⏳ {model_name} denkt nach...")
+def query(model, text):
     try:
-        response = ollama.chat(model=model_name, messages=[
-            {'role': 'user', 'content': prompt},
-        ])
-        return response['message']['content']
+        res = ollama.chat(model=model, messages=[{'role': 'user', 'content': text}])
+        return res['message']['content']
     except Exception as e:
-        return f"Fehler bei {model_name}: {e}"
+        return f"Error: {e}"
 
-print("\n--- Start der Dreier-Konferenz ---\n")
+# Hauptablauf
+task = input("Aufgabe/Input: ")
+print("\nBearbeite Anfrage...\n")
 
-prompt_1 = f"Stelle eine kurze, aber knifflige Quizfrage zum Thema {topic}."
-frage = ask_model(model_a, prompt_1)
-print(f"\n👨‍🏫 [{model_a} LEHRER]:\n{frage}\n")
+# Variante 1
+p1 = f"Aufgabe: {task}\n\nBitte bearbeiten."
+res1 = query(m1, p1)
+print(f"--- Output {m1} (A) ---\n{res1}\n")
 
-prompt_2 = f"Die Frage ist: '{frage}'. Beantworte sie kurz und prägnant."
-antwort_b = ask_model(model_b, prompt_2)
-print(f"\n🧑‍🎓 [{model_b} SCHÜLER]:\n{antwort_b}\n")
+# Variante 2
+p2 = f"Aufgabe: {task}\n\nBitte bearbeiten."
+res2 = query(m2, p2)
+print(f"--- Output {m2} (B) ---\n{res2}\n")
 
-prompt_3 = f"Frage: '{frage}'. Antwort eines Schülers: '{antwort_b}'. Hat der Schüler recht? Ergänze ein wichtiges Detail, das fehlt."
-kommentar_c = ask_model(model_c, prompt_3)
-print(f"\n🤓 [{model_c} CHECKER]:\n{kommentar_c}\n")
+# Vergleich
+p3 = (f"Originalaufgabe: {task}\n\n"
+      f"Lösung A:\n{res1}\n\n"
+      f"Lösung B:\n{res2}\n\n"
+      f"Vergleiche A und B und nenne die bessere Lösung mit Begründung.")
 
-prompt_4 = (f"Hier ist der Verlauf:\n"
-            f"1. Deine Frage: {frage}\n"
-            f"2. Antwort Schüler: {antwort_b}\n"
-            f"3. Anmerkung Checker: {kommentar_c}\n\n"
-            f"Fasse zusammen: War die Antwort korrekt? Gib dem Schüler eine Note (1-6) und ein kurzes Abschlussfazit.")
-bewertung = ask_model(model_a, prompt_4)
-print(f"\n👨‍🏫 [{model_a} ZEUGNIS]:\n{bewertung}\n")
+verdict = query(m3, p3)
+print(f"--- Fazit ({m3}) ---\n{verdict}\n")
