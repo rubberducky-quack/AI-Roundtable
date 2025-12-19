@@ -2,12 +2,12 @@ import ollama
 
 # Konfiguration
 
-m1 = "ministral-3:14b"
-m2 = "ministral-3:14b"
-m3 ="ministral-3:14b"
-#m1 = "ministral-3:3b"
-#m2 = "ministral-3:3b"
-#m3 = "ministral-3:3b"
+#m1 = "ministral-3:14b"
+#m2 = "ministral-3:14b"
+#m3 ="ministral-3:14b"
+m1 = "ministral-3:3b"
+m2 = "ministral-3:3b"
+m3 = "ministral-3:3b"
 
 def query(model, text):
     try:
@@ -23,12 +23,12 @@ print("\nBearbeite Anfrage...\n")
 # Variante 1
 p1 = f"Aufgabe: {task}\n\nBitte bearbeiten."
 res1 = query(m1, p1)
-print(f"--- Output {m1} (A) ---\n{res1}\n")
+#print(f"--- Output {m1} (A) ---\n{res1}\n")
 
 # Variante 2
 p2 = f"Aufgabe: {task}\n\nBitte bearbeiten."
 res2 = query(m2, p2)
-print(f"--- Output {m2} (B) ---\n{res2}\n")
+#print(f"--- Output {m2} (B) ---\n{res2}\n")
 
 # Vergleich
 p3 = (f"Originalaufgabe: {task}\n\n"
