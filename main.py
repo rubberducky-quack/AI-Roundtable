@@ -4,10 +4,11 @@ import ollama
 
 #m1 = "ministral-3:14b"
 #m2 = "ministral-3:14b"
-#m3 ="ministral-3:14b"
+#m3 = "ministral-3:14b"
 m1 = "ministral-3:3b"
 m2 = "ministral-3:3b"
 m3 = "ministral-3:3b"
+m4 = "functiongemma:latest"
 
 def query(model, text):
     try:
